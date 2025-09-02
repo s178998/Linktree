@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkHub - Your Digital Presence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --text: #374151;
+            --text-light: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-bio {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .links-container {
+            padding: 1.5rem;
+        }
+        
+        .link-card {
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .link-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .link-content {
+            flex: 1;
+        }
+        
+        .link-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .link-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .profile-image {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .links-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <!-- Replace with your own image URL -->
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Profile" class="profile-image">
+            <h1 class="profile-name">Alex Johnson</h1>
+            <p class="profile-bio">Builder of HabitZen • Making habit tracking effortless</p>
+        </div>
+        
+        <div class="links-container">
+            <!-- HabitZen Waitlist Link -->
+            <a href="https://s178998.github.io/habitzen-waitlist./" class="link-card" target="_blank">
+                <div class="link-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Join HabitZen Waitlist</div>
+                    <div class="link-description">Get early access to our habit tracking app</div>
+                </div>
+            </a>
+            
+            <!-- Twitter Link -->
+            <a href="https://twitter.com/" class="link-card" target="_blank">
+                <div class="link-icon" style="background-color: #1DA1F2;">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Twitter</div>
+                    <div class="link-description">Follow me for updates and insights</div>
+                </div>
+            </a>
+            
+            <!-- Instagram Link -->
+            <a href="https://instagram.com/" class="link-card" target="_blank">
+                <div class="link-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Instagram</div>
+                    <div class="link-description">Behind-the-scenes of building HabitZen</div>
+                </div>
+            </a>
+            
+            <!-- LinkedIn Link -->
+            <a href="https://linkedin.com/" class="link-card" target="_blank">
+                <div class="link-icon" style="background-color: #0A66C2;">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-description">Connect with me professionally</div>
+                </div>
+            </a>
+            
+            <!-- Email Link -->
+            <a href="mailto:your.email@example.com" class="link-card">
+                <div class="link-icon" style="background-color: #EA4335;">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="link-content">
+                    <div class="link-title">Email Me</div>
+                    <div class="link-description">Let's talk about habits and productivity</div>
+                </div>
+            </a>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://twitter.com/" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://instagram.com/" class="social-link" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://linkedin.com/" class="social-link" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 LinkHub • All your important links in one place</p>
+        <div class="badge">Made with ❤️ for HabitZen</div>
+    </div>
+
+    <script>
+        // Simple animation for page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.link-card');
+            links.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    link.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    link.style.opacity = '1';
+                    link.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html>
