@@ -14,6 +14,8 @@
             --light: #f9fafb;
             --text: #374151;
             --text-light: #6b7280;
+            --background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            --card-background: white;
         }
         
         * {
@@ -24,7 +26,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            background: var(--background);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
@@ -32,15 +34,18 @@
             flex-direction: column;
             align-items: center;
             padding: 2rem 1rem;
+            transition: background 0.3s ease;
         }
         
         .container {
             width: 100%;
             max-width: 500px;
-            background: white;
+            background: var(--card-background);
             border-radius: 16px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
         }
         
         .profile-header {
@@ -48,6 +53,7 @@
             padding: 2.5rem 2rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
+            transition: all 0.3s ease;
         }
         
         .profile-image {
@@ -57,12 +63,14 @@
             object-fit: cover;
             border: 4px solid rgba(255, 255, 255, 0.3);
             margin-bottom: 1rem;
+            cursor: pointer;
         }
         
         .profile-name {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            cursor: pointer;
         }
         
         .profile-bio {
@@ -70,6 +78,7 @@
             opacity: 0.9;
             max-width: 300px;
             margin: 0 auto;
+            cursor: pointer;
         }
         
         .links-container {
@@ -87,6 +96,8 @@
             border: 1px solid #e5e7eb;
             text-decoration: none;
             color: var(--text);
+            cursor: pointer;
+            position: relative;
         }
         
         .link-card:hover {
@@ -107,6 +118,7 @@
             font-size: 1.2rem;
             margin-right: 1rem;
             flex-shrink: 0;
+            transition: all 0.3s ease;
         }
         
         .link-content {
@@ -169,6 +181,197 @@
             margin-top: 0.5rem;
         }
         
+        /* Analytics Panel */
+        .analytics-panel {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-background);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .analytics-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .analytics-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .analytics-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .analytics-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        /* Customization Panel */
+        .customization-panel {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-background);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .customization-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .color-picker {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .color-option {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .color-option label {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .color-option input {
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            padding: 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        .share-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .share-input {
+            display: flex;
+            margin-top: 0.5rem;
+        }
+        
+        .share-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px 0 0 8px;
+            font-size: 0.9rem;
+        }
+        
+        .share-input button {
+            border-radius: 0 8px 8px 0;
+            border: 1px solid var(--primary);
+        }
+        
+        /* Toggle buttons */
+        .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .toggle-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--light);
+            color: var(--text);
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Edit mode */
+        .edit-mode .editable {
+            border: 1px dashed var(--primary);
+            padding: 0.25rem;
+            margin: -0.25rem;
+            border-radius: 4px;
+        }
+        
         @media (max-width: 480px) {
             .profile-header {
                 padding: 2rem 1.5rem;
@@ -182,71 +385,84 @@
             .links-container {
                 padding: 1rem;
             }
+            
+            .analytics-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-picker {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="toggle-buttons">
+        <button class="toggle-btn active" id="view-mode-btn">View Mode</button>
+        <button class="toggle-btn" id="edit-mode-btn">Edit Mode</button>
+        <button class="toggle-btn" id="analytics-btn">Analytics</button>
+    </div>
+    
+    <div class="container" id="main-container">
         <div class="profile-header">
-            <!-- Replace with your own image URL -->
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Profile" class="profile-image">
-            <h1 class="profile-name">Alex Johnson</h1>
-            <p class="profile-bio">Builder of HabitZen • Making habit tracking effortless</p>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Profile" class="profile-image editable" data-field="image" contenteditable="false">
+            <h1 class="profile-name editable" data-field="name" contenteditable="false">Alex Johnson</h1>
+            <p class="profile-bio editable" data-field="bio" contenteditable="false">Builder of HabitZen • Making habit tracking effortless</p>
         </div>
         
         <div class="links-container">
             <!-- HabitZen Waitlist Link -->
-            <a href="https://s178998.github.io/habitzen-waitlist./" class="link-card" target="_blank">
+            <a href="https://s178998.github.io/habitzen-waitlist/" class="link-card" target="_blank" data-title="Join HabitZen Waitlist" data-description="Get early access to our habit tracking app">
                 <div class="link-icon">
                     <i class="fas fa-leaf"></i>
                 </div>
                 <div class="link-content">
-                    <div class="link-title">Join HabitZen Waitlist</div>
-                    <div class="link-description">Get early access to our habit tracking app</div>
+                    <div class="link-title editable" data-field="link-title" contenteditable="false">Join HabitZen Waitlist</div>
+                    <div class="link-description editable" data-field="link-desc" contenteditable="false">Get early access to our habit tracking app</div>
                 </div>
             </a>
             
             <!-- Twitter Link -->
-            <a href="https://twitter.com/" class="link-card" target="_blank">
+            <a href="https://twitter.com/" class="link-card" target="_blank" data-title="Twitter" data-description="Follow me for updates and insights">
                 <div class="link-icon" style="background-color: #1DA1F2;">
                     <i class="fab fa-twitter"></i>
                 </div>
                 <div class="link-content">
-                    <div class="link-title">Twitter</div>
-                    <div class="link-description">Follow me for updates and insights</div>
+                    <div class="link-title editable" data-field="link-title" contenteditable="false">Twitter</div>
+                    <div class="link-description editable" data-field="link-desc" contenteditable="false">Follow me for updates and insights</div>
                 </div>
             </a>
             
             <!-- Instagram Link -->
-            <a href="https://instagram.com/" class="link-card" target="_blank">
+            <a href="https://instagram.com/" class="link-card" target="_blank" data-title="Instagram" data-description="Behind-the-scenes of building HabitZen">
                 <div class="link-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
                     <i class="fab fa-instagram"></i>
                 </div>
                 <div class="link-content">
-                    <div class="link-title">Instagram</div>
-                    <div class="link-description">Behind-the-scenes of building HabitZen</div>
+                    <div class="link-title editable" data-field="link-title" contenteditable="false">Instagram</div>
+                    <div class="link-description editable" data-field="link-desc" contenteditable="false">Behind-the-scenes of building HabitZen</div>
                 </div>
             </a>
             
             <!-- LinkedIn Link -->
-            <a href="https://linkedin.com/" class="link-card" target="_blank">
+            <a href="https://linkedin.com/" class="link-card" target="_blank" data-title="LinkedIn" data-description="Connect with me professionally">
                 <div class="link-icon" style="background-color: #0A66C2;">
                     <i class="fab fa-linkedin-in"></i>
                 </div>
                 <div class="link-content">
-                    <div class="link-title">LinkedIn</div>
-                    <div class="link-description">Connect with me professionally</div>
+                    <div class="link-title editable" data-field="link-title" contenteditable="false">LinkedIn</div>
+                    <div class="link-description editable" data-field="link-desc" contenteditable="false">Connect with me professionally</div>
                 </div>
             </a>
             
             <!-- Email Link -->
-            <a href="mailto:your.email@example.com" class="link-card">
+            <a href="mailto:your.email@example.com" class="link-card" data-title="Email Me" data-description="Let's talk about habits and productivity">
                 <div class="link-icon" style="background-color: #EA4335;">
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div class="link-content">
-                    <div class="link-title">Email Me</div>
-                    <div class="link-description">Let's talk about habits and productivity</div>
+                    <div class="link-title editable" data-field="link-title" contenteditable="false">Email Me</div>
+                    <div class="link-description editable" data-field="link-desc" contenteditable="false">Let's talk about habits and productivity</div>
                 </div>
             </a>
         </div>
@@ -264,6 +480,71 @@
             <a href="https://github.com/" class="social-link" target="_blank">
                 <i class="fab fa-github"></i>
             </a>
+        </div>
+    </div>
+    
+    <!-- Analytics Panel (initially hidden) -->
+    <div class="analytics-panel" id="analytics-panel" style="display: none;">
+        <div class="analytics-title">
+            <span>Analytics Dashboard</span>
+            <span id="total-clicks">0 Clicks Today</span>
+        </div>
+        
+        <div class="analytics-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="total-clicks-stat">0</div>
+                <div class="stat-label">Total Clicks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="unique-visitors">0</div>
+                <div class="stat-label">Unique Visitors</div>
+            </div>
+        </div>
+        
+        <h3>Recent Activity</h3>
+        <div class="analytics-list" id="analytics-list">
+            <div class="analytics-item">
+                <span>No activity yet</span>
+                <span>Just now</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Customization Panel (initially hidden) -->
+    <div class="customization-panel" id="customization-panel" style="display: none;">
+        <div class="customization-title">Customize Your LinkHub</div>
+        
+        <div class="color-picker">
+            <div class="color-option">
+                <label for="primary-color">Primary Color</label>
+                <input type="color" id="primary-color" value="#6366f1">
+            </div>
+            <div class="color-option">
+                <label for="secondary-color">Secondary Color</label>
+                <input type="color" id="secondary-color" value="#10b981">
+            </div>
+            <div class="color-option">
+                <label for="background-color">Background</label>
+                <input type="color" id="background-color" value="#f3f4f6">
+            </div>
+            <div class="color-option">
+                <label for="text-color">Text Color</label>
+                <input type="color" id="text-color" value="#374151">
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="apply-colors-btn">Apply Colors</button>
+            <button class="btn btn-secondary" id="reset-colors-btn">Reset to Default</button>
+        </div>
+        
+        <div class="share-section">
+            <h3>Your Shareable Link</h3>
+            <p>Use this link in your Instagram bio and other social media profiles:</p>
+            <div class="share-input">
+                <input type="text" id="shareable-link" value="https://yourusername.linkhub.com" readonly>
+                <button class="btn btn-primary" id="copy-link-btn">Copy</button>
+            </div>
         </div>
     </div>
     
@@ -285,7 +566,329 @@
                     link.style.transform = 'translateY(0)';
                 }, 100 + (index * 100));
             });
+            
+            // Initialize analytics data
+            initAnalytics();
+            
+            // Set up event listeners
+            setupEventListeners();
         });
+        
+        // Analytics data storage
+        let analyticsData = {
+            totalClicks: 0,
+            uniqueVisitors: 0,
+            todayClicks: 0,
+            activities: []
+        };
+        
+        // Initialize analytics from localStorage if available
+        function initAnalytics() {
+            const savedData = localStorage.getItem('linkhubAnalytics');
+            if (savedData) {
+                analyticsData = JSON.parse(savedData);
+                updateAnalyticsDisplay();
+            }
+            
+            // Check if this is a new visitor
+            if (!localStorage.getItem('linkhubVisitorId')) {
+                // Generate a unique visitor ID
+                const visitorId = 'visitor-' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('linkhubVisitorId', visitorId);
+                
+                // Increment unique visitors count
+                analyticsData.uniqueVisitors++;
+                saveAnalyticsData();
+            }
+        }
+        
+        // Save analytics data to localStorage
+        function saveAnalyticsData() {
+            localStorage.setItem('linkhubAnalytics', JSON.stringify(analyticsData));
+        }
+        
+        // Update analytics display
+        function updateAnalyticsDisplay() {
+            document.getElementById('total-clicks').textContent = analyticsData.todayClicks + ' Clicks Today';
+            document.getElementById('total-clicks-stat').textContent = analyticsData.totalClicks;
+            document.getElementById('unique-visitors').textContent = analyticsData.uniqueVisitors;
+            
+            const analyticsList = document.getElementById('analytics-list');
+            analyticsList.innerHTML = '';
+            
+            if (analyticsData.activities.length === 0) {
+                analyticsList.innerHTML = '<div class="analytics-item"><span>No activity yet</span><span>Just now</span></div>';
+            } else {
+                // Show latest 5 activities
+                const recentActivities = analyticsData.activities.slice(-5).reverse();
+                recentActivities.forEach(activity => {
+                    const item = document.createElement('div');
+                    item.className = 'analytics-item';
+                    item.innerHTML = `
+                        <span>Clicked: ${activity.link}</span>
+                        <span>${formatTime(activity.timestamp)}</span>
+                    `;
+                    analyticsList.appendChild(item);
+                });
+            }
+        }
+        
+        // Format timestamp for display
+        function formatTime(timestamp) {
+            const now = new Date();
+            const date = new Date(timestamp);
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) {
+                return 'Just now';
+            } else if (diffInSeconds < 3600) {
+                return Math.floor(diffInSeconds / 60) + ' min ago';
+            } else if (diffInSeconds < 86400) {
+                return Math.floor(diffInSeconds / 3600) + ' hours ago';
+            } else {
+                return date.toLocaleDateString();
+            }
+        }
+        
+        // Track link click
+        function trackLinkClick(linkTitle, linkUrl) {
+            analyticsData.totalClicks++;
+            
+            // Check if this is today's click
+            const today = new Date().toDateString();
+            const lastClickDate = localStorage.getItem('linkhubLastClickDate');
+            
+            if (lastClickDate === today) {
+                analyticsData.todayClicks++;
+            } else {
+                localStorage.setItem('linkhubLastClickDate', today);
+                analyticsData.todayClicks = 1;
+            }
+            
+            // Add to activities
+            analyticsData.activities.push({
+                link: linkTitle,
+                url: linkUrl,
+                timestamp: new Date().toISOString()
+            });
+            
+            saveAnalyticsData();
+            updateAnalyticsDisplay();
+            
+            // In a real implementation, you would send this data to your analytics server
+            console.log('Link clicked:', linkTitle, linkUrl);
+            
+            // Simulate sending data to analytics server (like Beacon AI)
+            try {
+                // Using navigator.sendBeacon if available
+                const analyticsData = {
+                    event: 'link_click',
+                    link_title: linkTitle,
+                    link_url: linkUrl,
+                    timestamp: new Date().toISOString(),
+                    visitor_id: localStorage.getItem('linkhubVisitorId')
+                };
+                
+                const blob = new Blob([JSON.stringify(analyticsData)], { type: 'application/json; charset=UTF-8' });
+                navigator.sendBeacon('https://example.com/analytics', blob);
+            } catch (e) {
+                console.log('Analytics beacon sending failed', e);
+            }
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Track all link clicks
+            document.querySelectorAll('.link-card').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const linkTitle = this.getAttribute('data-title');
+                    const linkUrl = this.getAttribute('href');
+                    trackLinkClick(linkTitle, linkUrl);
+                });
+            });
+            
+            // Toggle buttons
+            document.getElementById('view-mode-btn').addEventListener('click', function() {
+                setActiveMode('view');
+            });
+            
+            document.getElementById('edit-mode-btn').addEventListener('click', function() {
+                setActiveMode('edit');
+            });
+            
+            document.getElementById('analytics-btn').addEventListener('click', function() {
+                setActiveMode('analytics');
+            });
+            
+            // Color customization
+            document.getElementById('apply-colors-btn').addEventListener('click', applyCustomColors);
+            document.getElementById('reset-colors-btn').addEventListener('click', resetColors);
+            
+            // Copy shareable link
+            document.getElementById('copy-link-btn').addEventListener('click', function() {
+                const shareInput = document.getElementById('shareable-link');
+                shareInput.select();
+                document.execCommand('copy');
+                
+                // Show confirmation
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = 'Copy';
+                }, 2000);
+            });
+            
+            // Make editable fields functional
+            document.querySelectorAll('.editable').forEach(field => {
+                field.addEventListener('blur', function() {
+                    const fieldType = this.getAttribute('data-field');
+                    const content = this.textContent;
+                    
+                    // Save to localStorage
+                    localStorage.setItem(`linkhub_${fieldType}`, content);
+                });
+            });
+            
+            // Load saved editable content
+            loadSavedContent();
+        }
+        
+        // Set active mode
+        function setActiveMode(mode) {
+            // Update toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show/hide panels
+            if (mode === 'view') {
+                document.getElementById('view-mode-btn').classList.add('active');
+                document.getElementById('main-container').style.display = 'block';
+                document.getElementById('analytics-panel').style.display = 'none';
+                document.getElementById('customization-panel').style.display = 'none';
+                
+                // Disable editing
+                document.body.classList.remove('edit-mode');
+                document.querySelectorAll('.editable').forEach(field => {
+                    field.setAttribute('contenteditable', 'false');
+                });
+            } else if (mode === 'edit') {
+                document.getElementById('edit-mode-btn').classList.add('active');
+                document.getElementById('main-container').style.display = 'block';
+                document.getElementById('analytics-panel').style.display = 'none';
+                document.getElementById('customization-panel').style.display = 'none';
+                
+                // Enable editing
+                document.body.classList.add('edit-mode');
+                document.querySelectorAll('.editable').forEach(field => {
+                    field.setAttribute('contenteditable', 'true');
+                });
+            } else if (mode === 'analytics') {
+                document.getElementById('analytics-btn').classList.add('active');
+                document.getElementById('main-container').style.display = 'none';
+                document.getElementById('analytics-panel').style.display = 'block';
+                document.getElementById('customization-panel').style.display = 'none';
+                
+                // Disable editing
+                document.body.classList.remove('edit-mode');
+                document.querySelectorAll('.editable').forEach(field => {
+                    field.setAttribute('contenteditable', 'false');
+                });
+                
+                // Update analytics display
+                updateAnalyticsDisplay();
+            }
+        }
+        
+        // Apply custom colors
+        function applyCustomColors() {
+            const primaryColor = document.getElementById('primary-color').value;
+            const secondaryColor = document.getElementById('secondary-color').value;
+            const backgroundColor = document.getElementById('background-color').value;
+            const textColor = document.getElementById('text-color').value;
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary', primaryColor);
+            document.documentElement.style.setProperty('--primary-dark', shadeColor(primaryColor, -20));
+            document.documentElement.style.setProperty('--secondary', secondaryColor);
+            document.documentElement.style.setProperty('--background', `linear-gradient(135deg, ${backgroundColor} 0%, ${shadeColor(backgroundColor, -10)} 100%)`);
+            document.documentElement.style.setProperty('--text', textColor);
+            
+            // Save to localStorage
+            localStorage.setItem('linkhub_primaryColor', primaryColor);
+            localStorage.setItem('linkhub_secondaryColor', secondaryColor);
+            localStorage.setItem('linkhub_backgroundColor', backgroundColor);
+            localStorage.setItem('linkhub_textColor', textColor);
+        }
+        
+        // Reset colors to default
+        function resetColors() {
+            document.getElementById('primary-color').value = '#6366f1';
+            document.getElementById('secondary-color').value = '#10b981';
+            document.getElementById('background-color').value = '#f3f4f6';
+            document.getElementById('text-color').value = '#374151';
+            
+            // Apply default colors
+            applyCustomColors();
+            
+            // Remove from localStorage
+            localStorage.removeItem('linkhub_primaryColor');
+            localStorage.removeItem('linkhub_secondaryColor');
+            localStorage.removeItem('linkhub_backgroundColor');
+            localStorage.removeItem('linkhub_textColor');
+        }
+        
+        // Helper function to shade colors
+        function shadeColor(color, percent) {
+            let R = parseInt(color.substring(1, 3), 16);
+            let G = parseInt(color.substring(3, 5), 16);
+            let B = parseInt(color.substring(5, 7), 16);
+            
+            R = parseInt(R * (100 + percent) / 100);
+            G = parseInt(G * (100 + percent) / 100);
+            B = parseInt(B * (100 + percent) / 100);
+            
+            R = (R < 255) ? R : 255;
+            G = (G < 255) ? G : 255;
+            B = (B < 255) ? B : 255;
+            
+            R = (R < 0) ? 0 : R;
+            G = (G < 0) ? 0 : G;
+            B = (B < 0) ? 0 : B;
+            
+            const RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
+            const GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
+            const BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
+            
+            return "#" + RR + GG + BB;
+        }
+        
+        // Load saved content from localStorage
+        function loadSavedContent() {
+            // Load profile info
+            const savedName = localStorage.getItem('linkhub_name');
+            const savedBio = localStorage.getItem('linkhub_bio');
+            const savedImage = localStorage.getItem('linkhub_image');
+            
+            if (savedName) document.querySelector('[data-field="name"]').textContent = savedName;
+            if (savedBio) document.querySelector('[data-field="bio"]').textContent = savedBio;
+            if (savedImage) document.querySelector('[data-field="image"]').src = savedImage;
+            
+            // Load colors
+            const savedPrimary = localStorage.getItem('linkhub_primaryColor');
+            const savedSecondary = localStorage.getItem('linkhub_secondaryColor');
+            const savedBackground = localStorage.getItem('linkhub_backgroundColor');
+            const savedText = localStorage.getItem('linkhub_textColor');
+            
+            if (savedPrimary) document.getElementById('primary-color').value = savedPrimary;
+            if (savedSecondary) document.getElementById('secondary-color').value = savedSecondary;
+            if (savedBackground) document.getElementById('background-color').value = savedBackground;
+            if (savedText) document.getElementById('text-color').value = savedText;
+            
+            // Apply saved colors
+            if (savedPrimary || savedSecondary || savedBackground || savedText) {
+                applyCustomColors();
+            }
+        }
     </script>
 </body>
 </html>
