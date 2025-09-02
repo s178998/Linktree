@@ -9,11 +9,15 @@
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
             --secondary: #10b981;
             --dark: #1f2937;
+            --darker: #111827;
             --light: #f9fafb;
+            --lighter: #f3f4f6;
             --text: #374151;
             --text-light: #6b7280;
+            --border: #e5e7eb;
         }
         
         * {
@@ -24,266 +28,803 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            background-color: var(--lighter);
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 1rem;
         }
         
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .profile-header {
-            text-align: center;
-            padding: 2.5rem 2rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--darker);
             color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
         }
         
-        .profile-image {
-            width: 100px;
-            height: 100px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .logo-icon {
+            font-size: 1.5rem;
+            color: var(--primary-light);
+        }
+        
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+            padding-left: 0.75rem;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background: var(--primary);
+            font-weight: 500;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .pro-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 100px;
+            margin-left: auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        /* Page Content */
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .page-title .badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        /* Form Panel */
+        .form-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .panel-header i {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+        
+        .panel-title {
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-note {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .field-list {
+            background: var(--lighter);
+            border-radius: 8px;
+            padding: 1rem;
             margin-bottom: 1rem;
         }
         
-        .profile-name {
+        .field-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .field-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+        }
+        
+        .btn-outline:hover {
+            background: var(--lighter);
+        }
+        
+        .layout-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .layout-option {
+            flex: 1;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .layout-option.active {
+            border-color: var(--primary);
+        }
+        
+        .layout-option i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .layout-option.active i {
+            color: var(--primary);
+        }
+        
+        /* Preview Panel */
+        .preview-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 2rem;
+        }
+        
+        .preview-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .preview-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 auto 1rem;
+        }
+        
+        .preview-username {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .preview-bio {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .preview-form {
+            background: var(--lighter);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .preview-form-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preview-form-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .preview-field {
+            margin-bottom: 1rem;
+        }
+        
+        .preview-field input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .preview-submit {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .preview-footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        /* Analytics Panel */
+        .analytics-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+        
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .metric-card {
+            background: var(--lighter);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .metric-value {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
         
-        .profile-bio {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-        
-        .links-container {
-            padding: 1.5rem;
-        }
-        
-        .link-card {
-            display: flex;
-            align-items: center;
-            background: var(--light);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid #e5e7eb;
-            text-decoration: none;
-            color: var(--text);
-        }
-        
-        .link-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-        
-        .link-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            margin-right: 1rem;
-            flex-shrink: 0;
-        }
-        
-        .link-content {
-            flex: 1;
-        }
-        
-        .link-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        
-        .link-description {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            border-top: 1px solid #e5e7eb;
-        }
-        
-        .social-link {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-        }
-        
-        .social-link:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
+        .metric-label {
             color: var(--text-light);
             font-size: 0.9rem;
         }
         
-        .badge {
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
             display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-top: 0.5rem;
+            width: 50px;
+            height: 24px;
         }
         
-        @media (max-width: 480px) {
-            .profile-header {
-                padding: 2rem 1.5rem;
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
             }
             
-            .profile-image {
-                width: 80px;
-                height: 80px;
+            .sidebar {
+                width: 200px;
             }
             
-            .links-container {
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
                 padding: 1rem;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile-header">
-            <!-- Replace with your own image URL -->
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Profile" class="profile-image">
-            <h1 class="profile-name">Alex Johnson</h1>
-            <p class="profile-bio">Builder of HabitZen • Making habit tracking effortless</p>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-link logo-icon"></i>
+            <span>LinkHub</span>
         </div>
         
-        <div class="links-container">
-            <!-- HabitZen Waitlist Link -->
-            <a href="https://s178998.github.io/habitzen-waitlist./" class="link-card" target="_blank">
-                <div class="link-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Join HabitZen Waitlist</div>
-                    <div class="link-description">Get early access to our habit tracking app</div>
-                </div>
-            </a>
-            
-            <!-- Twitter Link -->
-            <a href="https://twitter.com/" class="link-card" target="_blank">
-                <div class="link-icon" style="background-color: #1DA1F2;">
-                    <i class="fab fa-twitter"></i>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Twitter</div>
-                    <div class="link-description">Follow me for updates and insights</div>
-                </div>
-            </a>
-            
-            <!-- Instagram Link -->
-            <a href="https://instagram.com/" class="link-card" target="_blank">
-                <div class="link-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
-                    <i class="fab fa-instagram"></i>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Instagram</div>
-                    <div class="link-description">Behind-the-scenes of building HabitZen</div>
-                </div>
-            </a>
-            
-            <!-- LinkedIn Link -->
-            <a href="https://linkedin.com/" class="link-card" target="_blank">
-                <div class="link-icon" style="background-color: #0A66C2;">
-                    <i class="fab fa-linkedin-in"></i>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">LinkedIn</div>
-                    <div class="link-description">Connect with me professionally</div>
-                </div>
-            </a>
-            
-            <!-- Email Link -->
-            <a href="mailto:your.email@example.com" class="link-card">
-                <div class="link-icon" style="background-color: #EA4335;">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="link-content">
-                    <div class="link-title">Email Me</div>
-                    <div class="link-description">Let's talk about habits and productivity</div>
-                </div>
-            </a>
+        <div class="nav-section">
+            <div class="nav-title">Main</div>
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
         </div>
         
-        <div class="social-links">
-            <a href="https://twitter.com/" class="social-link" target="_blank">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://instagram.com/" class="social-link" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://linkedin.com/" class="social-link" target="_blank">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://github.com/" class="social-link" target="_blank">
-                <i class="fab fa-github"></i>
-            </a>
+        <div class="nav-section">
+            <div class="nav-title">Content</div>
+            <div class="nav-item">
+                <i class="fas fa-link"></i>
+                <span>Link in Bio</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-paint-brush"></i>
+                <span>Link in Bio Design</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-globe"></i>
+                <span>Websites</span>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Products</div>
+            <div class="nav-item">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Digital Products</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-handshake"></i>
+                <span>Affiliate Products</span>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Growth</div>
+            <div class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Marketing</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-star"></i>
+                <span>Brand Collabs</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <span>Analytics</span>
+                <span class="pro-badge">Pro</span>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Business</div>
+            <div class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Sales</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-dollar-sign"></i>
+                <span>Finance</span>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-title">Community</div>
+            <div class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Audience</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>Referrals</span>
+            </div>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
         </div>
     </div>
     
-    <div class="footer">
-        <p>© 2025 LinkHub • All your important links in one place</p>
-        <div class="badge">Made with ❤️ for HabitZen</div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">
+                <a href="#">Home</a> <i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i> 
+                <span>Link in Bio</span>
+            </div>
+            
+            <div class="user-menu">
+                <div class="avatar">AJ</div>
+                <span>@ayodejiosungbohun</span>
+            </div>
+        </div>
+        
+        <div class="page-title">
+            <span>Link in Bio</span>
+            <span class="badge">Pro</span>
+        </div>
+        
+        <div class="content-grid">
+            <!-- Form Panel -->
+            <div class="form-panel">
+                <div class="panel-header">
+                    <i class="fas fa-envelope"></i>
+                    <span class="panel-title">Contact form</span>
+                </div>
+                
+                <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+                    Collect emails, phone numbers and other details from your visitors.
+                </p>
+                
+                <div class="form-group">
+                    <label class="form-label">Thumbnail (optional)</label>
+                    <p class="form-note">Add an image to the top of the signup form.</p>
+                    <button class="btn btn-outline" style="margin-top: 0.5rem;">
+                        <i class="fas fa-plus"></i> Upload Image
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Title (optional)</label>
+                    <p class="form-note">Give your visitors guidance on what they are signing up for.</p>
+                    <input type="text" value="Join the HabitZen Waitlist!">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea>Be the first to get access. Limited spots available for our beta launch!</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Fields</label>
+                    <p class="form-note">Configure the fields you'd like to collect from your visitors.</p>
+                    
+                    <div class="field-list">
+                        <div class="field-item">
+                            <span>Name</span>
+                            <div class="field-actions">
+                                <i class="fas fa-bars" style="cursor: move;"></i>
+                            </div>
+                        </div>
+                        <div class="field-item">
+                            <span>Email</span>
+                            <div class="field-actions">
+                                <i class="fas fa-bars" style="cursor: move;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-outline">
+                        <i class="fas fa-plus"></i> Add Field
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Layout</label>
+                    
+                    <div class="layout-options">
+                        <div class="layout-option">
+                            <i class="fas fa-compress-alt"></i>
+                            <div>Compact</div>
+                        </div>
+                        <div class="layout-option active">
+                            <i class="fas fa-id-card"></i>
+                            <div>Card</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Submit button</label>
+                    <input type="text" value="Subscribe">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Submit Redirect</label>
+                    <p class="form-note">After visitors submit a response, they will be redirected to this page</p>
+                    <select style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 0.5rem;">
+                        <option>Select a page</option>
+                        <option>Thank You Page</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Success message</label>
+                    <input type="text" value="Submitted!">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Selected domain</label>
+                    <input type="text" value="beacons.ai/ayodejiosungbohun" readonly>
+                </div>
+            </div>
+            
+            <!-- Preview Panel -->
+            <div class="preview-panel">
+                <div class="preview-header">
+                    <div class="preview-avatar">AJ</div>
+                    <div class="preview-username">@ayodejiosungbohun</div>
+                    <div class="preview-bio">Builder of HabitZen • Making habit tracking effortless</div>
+                </div>
+                
+                <div class="preview-form">
+                    <div class="preview-form-title">Join the HabitZen Waitlist!</div>
+                    <div class="preview-form-desc">Be the first to get access. Limited spots available for our beta launch!</div>
+                    
+                    <div class="preview-field">
+                        <input type="text" placeholder="First Name">
+                    </div>
+                    
+                    <div class="preview-field">
+                        <input type="email" placeholder="Email">
+                    </div>
+                    
+                    <button class="preview-submit">Subscribe</button>
+                </div>
+                
+                <div class="preview-footer">
+                    <p>This is an empty store block</p>
+                    <p>Let's make it pop by adding some products here</p>
+                    <p style="color: #e11d48; margin-top: 1rem;">Action needed</p>
+                    <p>Links block placeholder</p>
+                    <p>Add a link to remove this temporary placeholder.</p>
+                </div>
+                
+                <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <i class="fas fa-beacon" style="color: var(--primary);"></i>
+                        <span style="font-size: 0.9rem; margin-left: 0.5rem;">LinkHub</span>
+                    </div>
+                    
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analytics Panel -->
+        <div class="analytics-panel">
+            <div class="analytics-header">
+                <h3>Analytics</h3>
+                <span class="pro-badge">Pro</span>
+            </div>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">1,243</div>
+                    <div class="metric-label">Total Views</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">327</div>
+                    <div class="metric-label">Signups</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">26.3%</div>
+                    <div class="metric-label">Conversion Rate</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value">$0</div>
+                    <div class="metric-label">Revenue</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Simple animation for page load
+        // Simple interactivity for the demo
         document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('.link-card');
-            links.forEach((link, index) => {
-                link.style.opacity = '0';
-                link.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    link.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    link.style.opacity = '1';
-                    link.style.transform = 'translateY(0)';
-                }, 100 + (index * 100));
+            // Layout selection
+            const layoutOptions = document.querySelectorAll('.layout-option');
+            layoutOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    layoutOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                });
+            });
+            
+            // Toggle switch
+            const toggle = document.querySelector('.toggle-switch input');
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.querySelector('.preview-footer').innerHTML = `
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                            <i class="fas fa-beacon" style="color: var(--primary);"></i>
+                            <span>LinkHub</span>
+                        </div>
+                    `;
+                } else {
+                    document.querySelector('.preview-footer').innerHTML = `
+                        <p>This is an empty store block</p>
+                        <p>Let's make it pop by adding some products here</p>
+                        <p style="color: #e11d48; margin-top: 1rem;">Action needed</p>
+                        <p>Links block placeholder</p>
+                        <p>Add a link to remove this temporary placeholder.</p>
+                    `;
+                }
             });
         });
     </script>
