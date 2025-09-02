@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkHub - Your Digital Presence</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #6366f1;
@@ -18,6 +19,9 @@
             --text: #374151;
             --text-light: #6b7280;
             --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
         }
         
         * {
@@ -215,7 +219,7 @@
             margin-top: 0.25rem;
         }
         
-        input[type="text"], textarea {
+        input[type="text"], textarea, select {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid var(--border);
@@ -414,6 +418,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
+            margin-bottom: 2rem;
         }
         
         .metric-card {
@@ -432,6 +437,35 @@
         .metric-label {
             color: var(--text-light);
             font-size: 0.9rem;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .chart-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-title {
+            font-weight: 600;
+        }
+        
+        .chart-actions {
+            display: flex;
+            gap: 0.5rem;
         }
         
         /* Toggle Switch */
@@ -480,6 +514,49 @@
             transform: translateX(26px);
         }
         
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
         /* Responsive */
         @media (max-width: 1024px) {
             .content-grid {
@@ -492,6 +569,10 @@
             
             .main-content {
                 margin-left: 200px;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -638,7 +719,7 @@
                 <div class="form-group">
                     <label class="form-label">Thumbnail (optional)</label>
                     <p class="form-note">Add an image to the top of the signup form.</p>
-                    <button class="btn btn-outline" style="margin-top: 0.5rem;">
+                    <button class="btn btn-outline" style="margin-top: 0.5rem;" id="uploadImageBtn">
                         <i class="fas fa-plus"></i> Upload Image
                     </button>
                 </div>
@@ -646,19 +727,19 @@
                 <div class="form-group">
                     <label class="form-label">Title (optional)</label>
                     <p class="form-note">Give your visitors guidance on what they are signing up for.</p>
-                    <input type="text" value="Join the HabitZen Waitlist!">
+                    <input type="text" value="Join the HabitZen Waitlist!" id="formTitle">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Description</label>
-                    <textarea>Be the first to get access. Limited spots available for our beta launch!</textarea>
+                    <textarea id="formDescription">Be the first to get access. Limited spots available for our beta launch!</textarea>
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Fields</label>
                     <p class="form-note">Configure the fields you'd like to collect from your visitors.</p>
                     
-                    <div class="field-list">
+                    <div class="field-list" id="fieldList">
                         <div class="field-item">
                             <span>Name</span>
                             <div class="field-actions">
@@ -673,7 +754,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-outline">
+                    <button class="btn btn-outline" id="addFieldBtn">
                         <i class="fas fa-plus"></i> Add Field
                     </button>
                 </div>
@@ -682,11 +763,11 @@
                     <label class="form-label">Layout</label>
                     
                     <div class="layout-options">
-                        <div class="layout-option">
+                        <div class="layout-option" id="compactLayout">
                             <i class="fas fa-compress-alt"></i>
                             <div>Compact</div>
                         </div>
-                        <div class="layout-option active">
+                        <div class="layout-option active" id="cardLayout">
                             <i class="fas fa-id-card"></i>
                             <div>Card</div>
                         </div>
@@ -695,13 +776,13 @@
                 
                 <div class="form-group">
                     <label class="form-label">Submit button</label>
-                    <input type="text" value="Subscribe">
+                    <input type="text" value="Subscribe" id="submitText">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Submit Redirect</label>
                     <p class="form-note">After visitors submit a response, they will be redirected to this page</p>
-                    <select style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 0.5rem;">
+                    <select id="redirectSelect" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); margin-top: 0.5rem;">
                         <option>Select a page</option>
                         <option>Thank You Page</option>
                     </select>
@@ -709,13 +790,17 @@
                 
                 <div class="form-group">
                     <label class="form-label">Success message</label>
-                    <input type="text" value="Submitted!">
+                    <input type="text" value="Submitted!" id="successMessage">
                 </div>
                 
                 <div class="form-group">
                     <label class="form-label">Selected domain</label>
                     <input type="text" value="beacons.ai/ayodejiosungbohun" readonly>
                 </div>
+
+                <button class="btn btn-primary" id="saveChangesBtn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
             </div>
             
             <!-- Preview Panel -->
@@ -726,9 +811,9 @@
                     <div class="preview-bio">Builder of HabitZen • Making habit tracking effortless</div>
                 </div>
                 
-                <div class="preview-form">
-                    <div class="preview-form-title">Join the HabitZen Waitlist!</div>
-                    <div class="preview-form-desc">Be the first to get access. Limited spots available for our beta launch!</div>
+                <div class="preview-form" id="previewForm">
+                    <div class="preview-form-title" id="previewTitle">Join the HabitZen Waitlist!</div>
+                    <div class="preview-form-desc" id="previewDescription">Be the first to get access. Limited spots available for our beta launch!</div>
                     
                     <div class="preview-field">
                         <input type="text" placeholder="First Name">
@@ -738,10 +823,10 @@
                         <input type="email" placeholder="Email">
                     </div>
                     
-                    <button class="preview-submit">Subscribe</button>
+                    <button class="preview-submit" id="previewSubmit">Subscribe</button>
                 </div>
                 
-                <div class="preview-footer">
+                <div class="preview-footer" id="previewFooter">
                     <p>This is an empty store block</p>
                     <p>Let's make it pop by adding some products here</p>
                     <p style="color: #e11d48; margin-top: 1rem;">Action needed</p>
@@ -756,7 +841,7 @@
                     </div>
                     
                     <label class="toggle-switch">
-                        <input type="checkbox" checked>
+                        <input type="checkbox" id="brandingToggle" checked>
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -772,52 +857,230 @@
             
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <div class="metric-value">1,243</div>
+                    <div class="metric-value" id="totalViews">1,243</div>
                     <div class="metric-label">Total Views</div>
                 </div>
                 
                 <div class="metric-card">
-                    <div class="metric-value">327</div>
+                    <div class="metric-value" id="totalSignups">327</div>
                     <div class="metric-label">Signups</div>
                 </div>
                 
                 <div class="metric-card">
-                    <div class="metric-value">26.3%</div>
+                    <div class="metric-value" id="conversionRate">26.3%</div>
                     <div class="metric-label">Conversion Rate</div>
                 </div>
                 
                 <div class="metric-card">
-                    <div class="metric-value">$0</div>
+                    <div class="metric-value" id="totalRevenue">$0</div>
                     <div class="metric-label">Revenue</div>
+                </div>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Traffic & Conversions</div>
+                        <div class="chart-actions">
+                            <select id="chartRange">
+                                <option>7 Days</option>
+                                <option>30 Days</option>
+                                <option selected>90 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <canvas id="trafficChart" height="250"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Traffic Sources</div>
+                    </div>
+                    <canvas id="sourcesChart" height="250"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Image Upload Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Upload Image</div>
+                <button class="modal-close" id="closeImageModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Select an image</label>
+                <input type="file" accept="image/*" id="imageUpload">
+            </div>
+            <button class="btn btn-primary" id="confirmImageUpload">Upload</button>
+        </div>
+    </div>
+
+    <!-- Add Field Modal -->
+    <div class="modal" id="fieldModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Add New Field</div>
+                <button class="modal-close" id="closeFieldModal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Field Type</label>
+                <select id="fieldType">
+                    <option value="text">Text</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                    <option value="number">Number</option>
+                    <option value="url">Website URL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Field Label</label>
+                <input type="text" id="fieldLabel" placeholder="e.g., Phone Number">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Placeholder Text</label>
+                <input type="text" id="fieldPlaceholder" placeholder="e.g., Enter your phone number">
+            </div>
+            <button class="btn btn-primary" id="confirmAddField">Add Field</button>
+        </div>
+    </div>
+
     <script>
-        // Simple interactivity for the demo
+        // Initialize analytics data
+        const analyticsData = {
+            totalViews: 1243,
+            totalSignups: 327,
+            conversionRate: 26.3,
+            totalRevenue: 0,
+            trafficData: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                views: [85, 112, 98, 134, 167, 203, 256, 301, 278, 245, 198, 224],
+                signups: [22, 28, 31, 42, 51, 67, 83, 97, 86, 72, 58, 64]
+            },
+            sourcesData: {
+                labels: ['Direct', 'Social Media', 'Search Engines', 'Referrals', 'Email'],
+                values: [45, 28, 15, 8, 4]
+            }
+        };
+
+        // Initialize charts
+        let trafficChart, sourcesChart;
+
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            // Layout selection
-            const layoutOptions = document.querySelectorAll('.layout-option');
-            layoutOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    layoutOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                });
+            initCharts();
+            setupEventListeners();
+            updatePreview();
+        });
+
+        // Initialize charts
+        function initCharts() {
+            const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+            trafficChart = new Chart(trafficCtx, {
+                type: 'line',
+                data: {
+                    labels: analyticsData.trafficData.labels,
+                    datasets: [
+                        {
+                            label: 'Page Views',
+                            data: analyticsData.trafficData.views,
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Signups',
+                            data: analyticsData.trafficData.signups,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
             });
-            
-            // Toggle switch
-            const toggle = document.querySelector('.toggle-switch input');
-            toggle.addEventListener('change', function() {
+
+            const sourcesCtx = document.getElementById('sourcesChart').getContext('2d');
+            sourcesChart = new Chart(sourcesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: analyticsData.sourcesData.labels,
+                    datasets: [{
+                        data: analyticsData.sourcesData.values,
+                        backgroundColor: [
+                            '#6366f1',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#8b5cf6'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Layout selection
+            document.getElementById('compactLayout').addEventListener('click', function() {
+                document.querySelectorAll('.layout-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('previewForm').classList.add('compact-layout');
+            });
+
+            document.getElementById('cardLayout').addEventListener('click', function() {
+                document.querySelectorAll('.layout-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('previewForm').classList.remove('compact-layout');
+            });
+
+            // Form input listeners
+            document.getElementById('formTitle').addEventListener('input', function() {
+                document.getElementById('previewTitle').textContent = this.value;
+            });
+
+            document.getElementById('formDescription').addEventListener('input', function() {
+                document.getElementById('previewDescription').textContent = this.value;
+            });
+
+            document.getElementById('submitText').addEventListener('input', function() {
+                document.getElementById('previewSubmit').textContent = this.value;
+            });
+
+            // Branding toggle
+            document.getElementById('brandingToggle').addEventListener('change', function() {
                 if (this.checked) {
-                    document.querySelector('.preview-footer').innerHTML = `
+                    document.getElementById('previewFooter').innerHTML = `
                         <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
                             <i class="fas fa-beacon" style="color: var(--primary);"></i>
                             <span>LinkHub</span>
                         </div>
                     `;
                 } else {
-                    document.querySelector('.preview-footer').innerHTML = `
+                    document.getElementById('previewFooter').innerHTML = `
                         <p>This is an empty store block</p>
                         <p>Let's make it pop by adding some products here</p>
                         <p style="color: #e11d48; margin-top: 1rem;">Action needed</p>
@@ -826,7 +1089,106 @@
                     `;
                 }
             });
-        });
+
+            // Image upload modal
+            document.getElementById('uploadImageBtn').addEventListener('click', function() {
+                document.getElementById('imageModal').style.display = 'flex';
+            });
+
+            document.getElementById('closeImageModal').addEventListener('click', function() {
+                document.getElementById('imageModal').style.display = 'none';
+            });
+
+            document.getElementById('confirmImageUpload').addEventListener('click', function() {
+                const fileInput = document.getElementById('imageUpload');
+                if (fileInput.files.length > 0) {
+                    alert('Image uploaded successfully!');
+                    document.getElementById('imageModal').style.display = 'none';
+                } else {
+                    alert('Please select an image first.');
+                }
+            });
+
+            // Add field modal
+            document.getElementById('addFieldBtn').addEventListener('click', function() {
+                document.getElementById('fieldModal').style.display = 'flex';
+            });
+
+            document.getElementById('closeFieldModal').addEventListener('click', function() {
+                document.getElementById('fieldModal').style.display = 'none';
+            });
+
+            document.getElementById('confirmAddField').addEventListener('click', function() {
+                const fieldType = document.getElementById('fieldType').value;
+                const fieldLabel = document.getElementById('fieldLabel').value || 'New Field';
+                const fieldPlaceholder = document.getElementById('fieldPlaceholder').value || 'Enter value';
+                
+                const fieldList = document.getElementById('fieldList');
+                const newField = document.createElement('div');
+                newField.className = 'field-item';
+                newField.innerHTML = `
+                    <span>${fieldLabel}</span>
+                    <div class="field-actions">
+                        <i class="fas fa-bars" style="cursor: move;"></i>
+                    </div>
+                `;
+                fieldList.appendChild(newField);
+                
+                document.getElementById('fieldModal').style.display = 'none';
+                
+                // Reset form
+                document.getElementById('fieldLabel').value = '';
+                document.getElementById('fieldPlaceholder').value = '';
+            });
+
+            // Save changes
+            document.getElementById('saveChangesBtn').addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> Saved!';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+                    }, 2000);
+                }, 1000);
+            });
+
+            // Chart range selector
+            document.getElementById('chartRange').addEventListener('change', function() {
+                // In a real app, this would fetch new data based on the selected range
+                alert(`Loading data for ${this.value}...`);
+            });
+        }
+
+        // Update preview based on form inputs
+        function updatePreview() {
+            // This function would update the preview based on form inputs
+            // Most updates are handled by the individual event listeners above
+        }
+
+        // Simulate new analytics data (in a real app, this would come from a backend)
+        function simulateNewData() {
+            // Randomly increment values to simulate new traffic
+            analyticsData.totalViews += Math.floor(Math.random() * 10);
+            analyticsData.totalSignups += Math.floor(Math.random() * 3);
+            analyticsData.conversionRate = ((analyticsData.totalSignups / analyticsData.totalViews) * 100).toFixed(1);
+            
+            // Update the metrics display
+            document.getElementById('totalViews').textContent = analyticsData.totalViews.toLocaleString();
+            document.getElementById('totalSignups').textContent = analyticsData.totalSignups.toLocaleString();
+            document.getElementById('conversionRate').textContent = `${analyticsData.conversionRate}%`;
+            
+            // Add new data point to charts (keeping only last 12 months for demo)
+            const currentMonth = new Date().getMonth();
+            analyticsData.trafficData.views[currentMonth] += Math.floor(Math.random() * 20);
+            analyticsData.trafficData.signups[currentMonth] += Math.floor(Math.random() * 5);
+            
+            // Update charts
+            trafficChart.update();
+            sourcesChart.update();
+        }
+
+        // Simulate live data updates every 30 seconds
+        setInterval(simulateNewData, 30000);
     </script>
 </body>
 </html>
